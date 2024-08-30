@@ -1,0 +1,28 @@
+# Node.js pipeline configuration for Azure DevOps
+# Build and run tests for a Node.js project using Protractor
+
+trigger:
+- main
+
+pool:
+  name: 'belal'
+
+variables:
+  LT_USERNAME: 'belalahmad'
+  LT_ACCESS_KEY: 'cousQqH3syuMR3H55LiQfG4QqCyPHRsZs3XJ3mbEle94hOdYLj'
+
+steps:
+- task: NodeTool@0
+  inputs:
+    versionSpec: '10.x'
+  displayName: 'Install Node.js'
+
+- script: |
+    npm install
+    npm install -g protractor
+  displayName: 'Install npm packages and Protractor'
+
+- script: |
+    cd conf
+    protractor single.conf.js
+  displayName: 'Run Protractor Tests'
